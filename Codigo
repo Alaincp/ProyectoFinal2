@@ -1,0 +1,94 @@
+Proyecto de ciencia de los datos
+Universidad Autónoma del Estado de México
+CU UAEM Zumpango
+Ingeniería en Computación
+Ciencia de los Datos
+Integrantes:
+Alain Alejandro Choreño Portillo
+Enrique Yair Zepeda Perales
+Rodrigo Navarrete Moreno
+Profesor: Asdrúbal López Chau
+Noviembre 2022
+
+
+Conjunto de datos
+
+A continuación se muestra los salarios  anuales de trabajadores que se encuentran separados por 4 diferentes pero importantes atributos, como lo son ingreso anual, edad, genero y nivel de educación. Se toma en cuenta que con estos atributos se hallen diferentes tipos de relaciones entre los datos y se pueda llevar a cabo un analisis para respoder diferentes cuestionamientos sobre los datos presentados
+
+Preguntas 
+Escribir las preguntas y argumentar, describir si cumplen con las condiciones de ser buenas preguntas y por qué. Explicar el tipo métodos a aplicar, justificando el uso.
+1.- ¿En qué rango de edad el sueldo es mayor?
+Consideramos que es una buena pregunta, ya que mucha gente en ocasiones inconcientemente atraviesa su mejor momento teniendo un buen salario y que si tomara en cuenta sus buenos ingresos podria realizar algun tipo de ahorro.
+Pero sobretodo se hace con la finalidad de que los usuarios conozcan en que edad pueden tener un mayor ingreso
+2 .- ¿Influye en el ingreso anual el género de la persona?
+Esta es una pregunta que se hace en todas partes, una cuestión que lleva años en discusión, consideramos que es buena, porque con ayuda de todas las herramientas podemos observar si existe alguna relación de principio y  poder estudiarla para llevar a cabo una buena respuesta
+3 .- ¿En qué rango de edad el sueldo es menor?
+Saber por ejemplo si cuenta mucho la experiencia de trabajo o si es que con el gran conocimiento que puede tener una persona es suficiente para conseguir un mejor puesto y por lo tanto un mejor sueldo.
+4. - ¿Es proporcional el salario de acuerdo al grado de estudios?
+A veces surge mucho la pregunta que con mayor grado de estudios es mejor el salario, es por eso que realizamos un analisis para poder comprobarlo con los datos que tenemos a la mano, y si de verdad tiene una relacion tan fuerte
+5 .- ¿Cómo se relaciona el género con el grado de estudios y el salario percibido?
+La pregunta va mas enfocada a verificar si es falso o no que las mujeres de verdad tienen un sueldo menor a los hombres, o si es que otros factores externos tambien estan afectando.
+
+Análisis Exploratorio
+Cargamos los datos correspondientes para hacer el análisis exploratorio
+s = salarydata
+Edad maxima y minima de las personas
+MinE = min(s.age) % edad minima
+MaxE = max(s.age) % edad maxima
+Ingreso anual minimo y maximo
+MinS = min(s.income) %ingreso minimo
+MaxS = max(s.income) %ingreso maximo
+Obtenemos chi cuadrada para observar si los atributos cuentan con una relación alguna, cabe recalcar que solo se hacen las pruebas correspodientes de acuerdo a las preguntas que planteamos en un inicio.
+En dado caso de que la variable p sea igual a 1, significa que no existe relacion entre los atributos
+Buscamos si existe alguna relacion entre el genero y el ingreso anual
+Los resultados que nos arroja el valor de p  significa que no puede existir alguna relacion.
+Aunque se intento seguir graficando para poder darle respuesta a las preguntas
+[tabla, chi2, p] = crosstab(s.gender,s.income)
+Ahora buscamos mediante chi cuadrada si existe alguna relación entre los atributos salario y nivel de estudios, esto para poder contestar nuestra pregunta numero 4
+El resultado nos arrojo una respuesta negativa, dandonos a entener que no existe una relación como tal entre el salario y el nivel de estudios
+Con lo cual no podemos darle respuesta a una de nuestras preguntas
+[tabla1, chi21, p1] = crosstab(s.education_level,s.income)
+
+
+Análisis de los datos
+Aplicar los métodos necesarios.
+Limpieza de los datos.
+Con ayuda del histograma nos damos cuenta que los datos cuentan con la misma cantidad de mujeres como de hombres
+histogram(s.gender)
+
+Graficamos el ingreso anual contra el genero de la persona
+scatter(s.income,s.gender)
+xlabel("ingreso anual")
+ylabel("Genero")
+Nos damos cuenta que todos estan en cierto rango de ganacias anualmente, y que no se muestran muchas diferencias o muchos datos dispersos
+
+Guardamos los datos del ingreso anual y la edad en dos variables distintas, esto con la finalidad de poderlos graficar y observar cual es su relacion y poder darle una respuesta concreta a nuestra primera pregunta y a la misma vez a la tercera pregunta
+Esta grafica nos da la información necesaria para poder interpretar y deducir la respuesta a nuestras preguntas
+salario = s.income
+edad = s.age
+scatter(edad,salario)
+xlabel("Edad")
+ylabel("Salario")
+
+Graficamos grado de estudios contra salario percibido agrupado por genero, esto con la finalidad de observar si hallamos alguna relacion entre todos los datos.
+Educacion = s.education_level
+salario1 = s.income
+genero = s.gender
+gscatter(Educacion,salario1,genero)
+xlabel("Nivel de educacion")
+ylabel("Salario")
+
+Hallazgos
+Con base en los resultados de los análisis, describir detalladamente los hallazgos encontrados. Justificar con los modelos empleados.
+1. Respondiendo nuestra pregunta numero 1, podemos ver en la grafica facilmente que se concentran mayor numero de personas en el rango de edad de los 45 a 48 años y sobretodo que son los que su salario esta mas elevado en consideracion de las otras edades presentes en la grafica
+2. Respondiendo a nuestra pregunta numero 2 observamos que los datos estan en el mismo rango para los dos generos y que son muy pocos los que son diferentes o que se encuentran en otro apartado indicandonos que tienen un salario mas alto. Entonces se llega a la respuesta que no influye para nada el genero en los ingresos anuales de cada persona
+3. Respondiendo a la pregunta numero 3, encontramos que el rango en el que se percibe un menor salario es entre los 18 y 39 años, pero presentan muchos datos, quiere decir que son muchas personas las que se encuentran en ese rango, ya que es la edad minima en la que se comienza a trabajar normalmente, pero esto no quiere decir que siempre se va a percibir un menor salario, hay muchas cosas que afectan a un buen salario
+4. Se intento obtener una relacion entre el salario y el nivel de estudios pero por lo vidto en nuestros datos no existe como tal esa relacion. Es decir, no tiene nada que ver que si entre mayor el grado de estudios mayor el salario, no se pudo encontrar una relacion como tal, el salario dependeria de otras razones
+5. Contestando nuestra ultima pregunta, como primera observacion vemos que no influye mucho el nivel de estudios con el ingreso anual de cada persona, y que el genero de la persona puede variar, es decir no notamos mucha diferencia ya que los datos no se encuentran tan dispersos, no hallamos como tal una relación entre estos tres atributos porque los datos no cambian demasiado, solo se encuentran unas pequeñas diferencias pero no son tan grandes para poder llegar a una conclusión exacta
+
+
+Conclusiones
+El análisis computacional sistemático de datos o estadísticas, se utiliza para el descubrimiento, interpretación y comunicación de patrones significativos en los datos. También implica aplicar patrones de datos para una toma de decisiones efectiva. Fue asi que pudimos hacer una buena relacion de los atributos proporcionados a nuestro tema y sacarles el mejor provecho de trabajo.
+Las organizaciones pueden aplicar análisis a los datos comerciales para describir, predecir y mejorar el rendimiento comercial.
+
+
